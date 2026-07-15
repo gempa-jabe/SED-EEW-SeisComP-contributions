@@ -1029,8 +1029,9 @@ double App::compute(Origin *org, double mag, int *stationCount) {
 					continue;
 				}
 			}
-			catch ( ... ) {
+			catch ( exception &e ) {
 				// No predictions
+				SEISCOMP_WARNING("No predictions for %s: %s", sid, e.what());
 				continue;
 			}
 
