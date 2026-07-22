@@ -670,10 +670,19 @@ Association *App::addAssociation(Origin *org,
 	catch ( ... ) {
 		return nullptr;
 	}
+	if ( !_settings.tttAllowNegativeDepths && depth < 0) {
+		depth = 0;
+	}
 
-	auto ttimes = _ttt->compute(org->latitude().value(), org->longitude().value(),
-	                           depth,
-	                           buffer.lat, buffer.lon, buffer.elev);
+	TravelTimeList* ttimes;
+	try {
+		ttimes = _ttt->compute(org->latitude().value(), org->longitude().value(),
+		                       depth, buffer.lat, buffer.lon, buffer.elev);
+	}
+	catch( exception &e ) {
+		SEISCOMP_DEBUG("%s", e.what());
+		return nullptr;
+	}
 	if ( !ttimes ) {
 		return nullptr;
 	}
