@@ -645,6 +645,11 @@ void App::removeObject(const std::string &, Object *obj) {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 void App::updateObject(const std::string &parentID, Object *obj) {
+	// make sure to invalidate the current values in _associationTable
+	auto org = Origin::Cast(obj);
+	if ( org ) {
+		_cache.remove(org);
+	}
 	// Just forward it to addObject and handle the update in the same way.
 	addObject(parentID, obj);
 }
@@ -733,7 +738,6 @@ void App::addAssociations(Origin *org) {
 
 	auto *eval = _associationTable.insert(org);
 	eval->eol = org->time().value() + _settings.envelopes.maxDelay;
-	eval->dirty = true; // if this is an update eval->dirty may be false
 
 	double maxTravelTime = 0;
 
