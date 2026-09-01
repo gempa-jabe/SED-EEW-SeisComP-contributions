@@ -135,7 +135,7 @@ class App : public Seiscomp::Client::Application {
 				& cfg(maximumDistance, "maximumDistance")
 				& cfg(minimumStations, "minimumStations")
 				& cfg(envelopeMagnitude, "envelopeMagnitude")
-				& cfg(updateInterval, "updateInverval")
+				& cfg(updateInterval, "updateInterval")
 				& cfg(preArrivalTimeWindow, "preArrivalTimeWindow")
 				& cfg(postArrivalTimeShare, "postArrivalTimeShare")
 				& cfg(predictionArchivePath, "predictionArchivePath")
@@ -227,7 +227,7 @@ class App : public Seiscomp::Client::Application {
 			Seiscomp::Core::TimeSpan cacheSize{1800, 0};
 			size_t                   updateInterval{1};
 			double                   maximumDistance{5};
-			size_t                   minimumStations{0};
+			size_t                   minimumStations{1};
 			double                   preArrivalTimeWindow{0};
 			double                   postArrivalTimeShare{1.5};
 			std::string              predictionArchivePath{"@DATADIR@/scogf"};
